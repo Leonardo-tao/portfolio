@@ -26,7 +26,7 @@ export default function App() {
   const isStatic = isStaticMode()
   return (
     <MotionConfig reducedMotion={isStatic ? 'always' : 'user'}>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <LightboxProvider>
           {!isStatic && <BootIntro />}
           <RouteProgress />
