@@ -1,0 +1,79 @@
+/* Target Cursor —— 十字准星光标样式 */
+
+.target-cursor-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 2147483647;
+  mix-blend-mode: difference;
+}
+
+/* 旋转层：四角括号围绕光标中心缓慢自转 */
+.target-cursor-rotor {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.target-cursor-dot {
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.target-cursor-corner {
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid #fff;
+  will-change: transform;
+  transition: border-color 0.15s ease;
+}
+
+.corner-tl {
+  border-right: none;
+  border-bottom: none;
+}
+.corner-tr {
+  border-left: none;
+  border-bottom: none;
+}
+.corner-br {
+  border-left: none;
+  border-top: none;
+}
+.corner-bl {
+  border-right: none;
+  border-top: none;
+}
+
+/* 锁定到可交互元素时切换金色 */
+.target-cursor-dot[data-locked],
+.target-cursor-corner[data-locked] {
+  border-color: #c9a558;
+}
+.target-cursor-dot[data-locked] {
+  background: #c9a558;
+}
+
+/* 启用准星光标时隐藏系统光标（含交互元素） */
+body.target-cursor-on,
+body.target-cursor-on a,
+body.target-cursor-on button,
+body.target-cursor-on [role='button'],
+body.target-cursor-on input,
+body.target-cursor-on textarea,
+body.target-cursor-on select,
+body.target-cursor-on label {
+  cursor: none;
+}

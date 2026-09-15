@@ -1,0 +1,215 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   设计系统 —— 暗色摄影画廊美学
+   深黑底 × 金色强调 × 宋体展示标题 × Manrope 正文
+   ============================================================ */
+
+@theme {
+  /* 色板 */
+  --color-deep-black: #0a0a0a;
+  --color-dark-gray: #1a1a1a;
+  --color-card: #111111;
+  --color-gold: #c9a558;
+  --color-gold-soft: #d8bc7e;
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-ink: #ffffff;
+  --color-ink-60: rgba(255, 255, 255, 0.6);
+  --color-ink-45: rgba(255, 255, 255, 0.45);
+  --color-ink-30: rgba(255, 255, 255, 0.3);
+
+  /* 字体 */
+  --font-sans: 'Manrope Variable', 'Manrope', ui-sans-serif, system-ui,
+    'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-display: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+
+  /* 缓动 */
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-dramatic: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 动画 */
+  --animate-grain: grain-shift 9s steps(10) infinite;
+  --animate-hero-drift: hero-drift 22s ease-in-out infinite alternate;
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-bounce-soft: bounce-soft 2s ease-in-out infinite;
+  --animate-breathe: breathe 5s ease-in-out infinite;
+  --animate-shutter-flash: shutter-flash 0.9s ease-out 0.15s both;
+  --animate-fade-in: fade-in 0.8s ease-out both;
+  --animate-rise-in: rise-in 0.9s var(--ease-expo-out) both;
+  --animate-progress: progress 1.4s ease-out both;
+
+  /* 字号（展示级） */
+  --text-display-xl: 4rem;
+  --text-display-xl--line-height: 1.05;
+  --text-display-xxl: 5.5rem;
+  --text-display-xxl--line-height: 1.02;
+
+  /* 断点别名 */
+  --breakpoint-3xl: 110rem;
+}
+
+/* ---------- 基础 ---------- */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-deep-black text-ink font-sans overflow-x-clip;
+  }
+
+  ::selection {
+    background: rgba(201, 165, 88, 0.85);
+    color: #0a0a0a;
+  }
+
+  /* 细滚动条（暗色） */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 5px;
+    border: 2px solid #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3a3a;
+  }
+
+  /* 键盘焦点可达性 */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------- 展示排版工具 ---------- */
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility display-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+@utility kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+@utility text-vertical-rl {
+  writing-mode: vertical-rl;
+}
+
+/* 全站玻璃质感底栏 */
+@utility glass-bar {
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* 照片卡片 hover 图像缩放容器 */
+@utility zoom-media {
+  overflow: hidden;
+  & img {
+    transition: transform 1.2s var(--ease-expo-out), opacity 0.7s ease;
+  }
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+/* ---------- 关键帧 ---------- */
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -8%); }
+  20% { transform: translate(-12%, 4%); }
+  30% { transform: translate(6%, -14%); }
+  40% { transform: translate(-4%, 12%); }
+  50% { transform: translate(-10%, 6%); }
+  60% { transform: translate(12%, 0%); }
+  70% { transform: translate(0%, 10%); }
+  80% { transform: translate(3%, 12%); }
+  90% { transform: translate(-8%, 8%); }
+}
+
+@keyframes hero-drift {
+  from { transform: scale(1.02) translate(0, 0); }
+  to { transform: scale(1.12) translate(-1.5%, -1%); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); opacity: 0.9; }
+  50% { transform: translateY(8px); opacity: 0.4; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(36px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shutter-flash {
+  0% { opacity: 0; }
+  30% { opacity: 0.85; }
+  100% { opacity: 0; }
+}
+
+@keyframes progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ---------- 灯箱图片入场（方向性滑动） ---------- */
+.lb-enter-x {
+  animation: lb-slide-x 0.55s var(--ease-expo-out) both;
+}
+@keyframes lb-slide-x {
+  from { opacity: 0; transform: translateX(var(--lb-dir, 40px)); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ---------- 减少动态偏好 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
