@@ -38,6 +38,9 @@ jobs:
         run: cp dist/index.html dist/404.html
 
       - uses: actions/configure-pages@v5
+        with:
+          # 首次运行时自动开启 GitHub Pages（来源设为 GitHub Actions）
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
