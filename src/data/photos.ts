@@ -1,4 +1,5 @@
 import manifestJson from '../../public/data/manifest.json'
+import { withBase } from '@/lib/utils'
 import type {
   CollectionId,
   Manifest,
@@ -46,7 +47,7 @@ export function collectionPhotos(id: CollectionId): Photo[] {
       id: `${id}/${r.n}`,
       collection: id,
       index: i + 1,
-      src: `/photos/${id}/${r.n}`,
+      src: withBase(`/photos/${id}/${r.n}`),
       lqip: r.q,
       w: r.w,
       h: r.h,
